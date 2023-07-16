@@ -1,5 +1,5 @@
 import './header.css'
-import {Link} from 'react-router-dom'
+import {Link, useResolvedPath,useMatch} from 'react-router-dom'
 export default function Header(){
 
 return (
@@ -8,20 +8,27 @@ return (
     <a href="/" className="site-title">ShapeMe</a>
 
     <ul>
-        <li className='active'>
-            <Link to="/" >Home</Link>
-        </li>
-        <li> 
-        <Link to="/about" >About</Link>
-        </li>
-        <li> 
-        <Link to="/another" >Another</Link>
-        </li>
+        <CustomLink to="/">Home </CustomLink>
+        <CustomLink to="/about" >About </CustomLink>
+        <CustomLink to="/another" >Another </CustomLink>
     </ul>
 </nav>
 </>
 
 )
+}
 
+//Ide s'e kom qka o ka bohet qitu amo po funskionon
+
+function CustomLink({ to ,children,...props}){
+    const reslovedPath = useResolvedPath(to)
+    const isActive = useMatch({ path : reslovedPath.pathname, end: true})
+    return(
+        <li className={isActive ? "active" : ""}>
+            <Link to={to} {...props}>
+            {children}
+            </Link>
+        </li>
+    )
 }
 
