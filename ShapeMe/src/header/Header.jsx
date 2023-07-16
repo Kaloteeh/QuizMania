@@ -1,5 +1,5 @@
 import './header.css'
-
+import {Link} from 'react-router-dom'
 export default function Header(){
 
 return (
@@ -9,13 +9,13 @@ return (
 
     <ul>
         <li className='active'>
-            <a href="/model">Model</a>
+            <Link to="/" >Home</Link>
         </li>
         <li> 
-            <a href="/about">About</a>
+        <Link to="/about" >About</Link>
         </li>
         <li> 
-            <a href="/about">Another</a>
+        <Link to="/another" >Another</Link>
         </li>
     </ul>
 </nav>

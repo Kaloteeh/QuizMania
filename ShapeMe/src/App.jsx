@@ -1,30 +1,27 @@
-import { useState } from 'react'
 
-import Header from './header/Header.jsx'
-import Model from './model1/Model.jsx'
-import About from './about/About.jsx'
+import Home from './Pages/Home'
+import About from './Pages/About'
+import Another from './Pages/Another'
+import Header from './header/Header'
+import { Route, Routes} from 'react-router-dom'
 
 console.log(window.location)
 
 function App() {
 
-let component
 
-  switch(window.location.pathname){
-    case "/" :
-      Component = <App/>
-      break
-        case "/model":
-          Component= <Model/>
-          break
-          case "/about":
-          Component= <About/>
-            break
-  }
+
+
   return (
     <>
       <Header/>
-      {component}
+      <div className='container'>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/another' element={<Another/>}/>
+        </Routes>
+      </div>
     </>
   )
 }
