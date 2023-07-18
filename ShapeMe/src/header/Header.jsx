@@ -12,7 +12,7 @@ return (
         <CustomLink to="/about" >About </CustomLink>
         <CustomLink to="/another" >Another </CustomLink>
         <CustomLink to="/panel" >Panel</CustomLink>
-        <Button variant='contained' className='btn' style={{height:50,padding:20,margin:15}}>LOGIN</Button>
+       <Link to='/login'> <Button variant='contained' className='btn' style={{height:50,padding:20,margin:15}}>LOGIN</Button></Link>
     </ul>
 </nav>
 </>

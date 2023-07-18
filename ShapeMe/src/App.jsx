@@ -3,7 +3,7 @@ import Home from './Pages/Home'
 import About from './Pages/About'
 import Another from './Pages/Another'
 import Header from './header/Header'
-// import Panel from './Pages/Panel'
+import Login from './Pages/Login'
 import Panel from './panel/Panel'
 import Navigation from './panel/elements/Navigation'
 import { Route, Routes, useLocation} from 'react-router-dom'
@@ -11,6 +11,8 @@ import { Route, Routes, useLocation} from 'react-router-dom'
 console.log(window.location)
 
 function App() {
+
+  
 
   const location = useLocation();
 
@@ -29,9 +31,9 @@ function App() {
           {/* <Route path='/panel' element={<Panel/>}/> */}
           <Route path='/panel' element={<Panel/>}/>
           <Route path='/panel/navigation' element={<Navigation/>}/>
-
-
+          <Route path='/login' element={<Login/>}/>
         </Routes>
+        
       </div>
     </>
   )
