@@ -1,9 +1,16 @@
 .navlist{
     list-style: none;
-    padding: 2rem 0 0 2rem;
+    padding: 20rem 0 0 2rem;
     font-size: 1.5rem;
+    
 } 
 
+.navlist a {
+    /* padding-bottom: 5rem; */
+    text-decoration: none;
+    color: black;
+}
+
 .navlist li:not(:first-child){
-    padding-top: 2rem;
+    padding-top: 4rem;
 }

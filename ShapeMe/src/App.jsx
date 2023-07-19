@@ -6,6 +6,9 @@ import Header from './header/Header'
 import Login from './Pages/Login'
 import Panel from './panel/Panel'
 import Navigation from './panel/elements/Navigation'
+import Admin from './panel/elements/Admin'
+import Users from './panel/elements/Users'
+import Dashboard from './panel/elements/Dashboard'
 import { Route, Routes, useLocation} from 'react-router-dom'
 
 console.log(window.location)
@@ -17,7 +20,7 @@ function App() {
   const location = useLocation();
 
   // Check if the current route is for the Panel component
-  const isPanelRoute = location.pathname === '/panel';
+  const isPanelRoute = location.pathname.startsWith('/panel'); // Check if it starts with '/panel'
 
 
   return (
@@ -28,10 +31,17 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/another' element={<Another/>}/>
-          {/* <Route path='/panel' element={<Panel/>}/> */}
-          <Route path='/panel' element={<Panel/>}/>
-          <Route path='/panel/navigation' element={<Navigation/>}/>
+
           <Route path='/login' element={<Login/>}/>
+
+          {/* PANEL ROUTE */}
+          <Route path='/panel' element={<Panel/>}> 
+              <Route path='/panel/navigation' element={<Navigation/>}/>
+              <Route path='/panel/admin' element={<Admin/>}/>
+              <Route path='/panel/users' element={<Users/>}/>
+              <Route path='/panel/dashboard' element={<Dashboard/>}/>
+          </Route>
+
         </Routes>
         
       </div>
