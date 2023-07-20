@@ -5,22 +5,30 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 export const NavigationData = [
 
     {
+        id : 1,
         title : "Admin",
+        name : 'admin',
         icon : <AdminPanelSettingsIcon/>,
-        link : "/panel/admin"
+        link : "/panel/admin",
+        
     },
 
     {
+        id : 2,
         title: "Users",
+        name : 'users',
         icon : <PeopleAltIcon/>,
-        link : "/panel/users"
-
+        link : "/panel/users",
+        
     },
 
     {
+        id : 3,
         title : "Dashboard",
+        name : 'dashboard',
         icon : <TroubleshootIcon/>,
-        link : "/panel/dashboard"
+        link : "/panel/dashboard" ,
+        
     }
 
 

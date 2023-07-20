@@ -10,7 +10,7 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 export default function Panel ()  {
 
-    const [selectedPage, setSelectedPage] = useState('admin'); // Default selected page is 'navigation'
+    const [selectedPage, setSelectedPage] = useState('');
 
     return(
         <>
