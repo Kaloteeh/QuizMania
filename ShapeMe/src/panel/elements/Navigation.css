@@ -1,16 +1,20 @@
 .navlist{
     list-style: none;
-    padding: 20rem 0 0 2rem;
+    padding-left: 2rem;
     font-size: 1.5rem;
     
 } 
 
+
 .navlist a {
-    /* padding-bottom: 5rem; */
     text-decoration: none;
     color: black;
 }
 
 .navlist li:not(:first-child){
     padding-top: 4rem;
+}
+
+.navlist li:first-child{
+    padding-top: 20rem;
 }
