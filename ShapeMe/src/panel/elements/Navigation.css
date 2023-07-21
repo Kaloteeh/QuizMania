@@ -32,10 +32,6 @@
     
 }
 
-.Navbarlist #active:first {
-    background-color: rgb(72, 83, 94);
-}
-
 .Navbarlist #active {
     background-color: rgb(72, 83, 94);
 

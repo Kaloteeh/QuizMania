@@ -17,7 +17,7 @@ export default function Navigation ({ selectedPage, setSelectedPage }) {
                     key={id}
                     ><li 
                     className='row'
-                    id={window.location.pathname === val.link ? 'active' : ''} // QITU U BO MUTI DIQKA NDRRo
+                    id={window.location.pathname === val.link ? 'active' : ''} 
                     onClick={() => setSelectedPage(val.name)}
                      > 
                     {" "}

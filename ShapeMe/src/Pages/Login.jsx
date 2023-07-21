@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import './login.css'
+import Button from '@mui/material/Button';
 
 function Login() {
     const [ user, setUser ] = useState([]);
@@ -37,22 +39,29 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className='logincontainer'>
             <h2>React Google Login</h2>
-            <br />
-            <br />
+           
             {profile ? (
-                <div>
+                <div className='logincontents'>
                     <img src={profile.picture} alt="user image" />
                     <h3>User Logged in</h3>
                     <p>Name: {profile.name}</p>
                     <p>Email Address: {profile.email}</p>
                     <br />
                     <br />
-                    <button onClick={logOut}>Log out</button>
+                    <Button variant='contained' onClick={logOut}>Log out</Button>
                 </div>
             ) : (
-                <button onClick={() => login()}>Sign in with Google 🚀 </button>
+               <> 
+               <Button 
+              style={{ padding:' 0.5rem 1rem 0.5rem 1rem',margin:'1rem'}}
+                variant='contained'
+                 onClick={() => login()}>
+                    Sign in with Google 
+                    </Button>
+                    <Button variant='contained' style={{backgroundColor:'purple',padding:' 0.5rem 1rem 0.5rem 1rem',margin:'1rem'}}>Sign in</Button>
+                    </>
             )}
         </div>
     );
