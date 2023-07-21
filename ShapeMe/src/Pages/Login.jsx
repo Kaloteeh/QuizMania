@@ -3,8 +3,13 @@ import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import './login.css'
 import Button from '@mui/material/Button';
+import { Helmet } from 'react-helmet'
 
 function Login() {
+
+   
+
+
     const [ user, setUser ] = useState([]);
     const [ profile, setProfile ] = useState(null);
 
@@ -39,6 +44,14 @@ function Login() {
     };
 
     return (
+
+        <>
+                    <Helmet>
+                        <title>
+                            ShapeMe | Login
+                        </title>
+                    </Helmet>
+        
         <div className='logincontainer'>
             <h2>React Google Login</h2>
            
@@ -64,6 +77,7 @@ function Login() {
                     </>
             )}
         </div>
+        </>
     );
 }
 export default Login;
