@@ -9,9 +9,9 @@ import Navigation from './panel/elements/Navigation'
 import Admin from './panel/elements/Admin'
 import Users from './panel/elements/Users'
 import Dashboard from './panel/elements/Dashboard'
+import Signup from  './Pages/Signup'
 import { Route, Routes, useLocation} from 'react-router-dom'
 
-console.log(window.location)
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/another' element={<Another/>}/>
-
+          <Route path='/signup' element={<Signup/>}/>
           <Route path='/login' element={<Login/>}/>
 
           {/* PANEL ROUTE */}

@@ -66,11 +66,20 @@ function Login() {
                             />
                         </FormControl>
 
-                        <button type='button' onClick={null}className='continueButton'>Continue</button>
+                        <button type='button' className='continueButton'>Continue</button>
 
                     </form>
-                    <p className='doYouHaveAnAccount'>Don't have an account? <Link className='signUp'>Sign up</Link></p>
-                    <h3 className='or'> <span>OR</span></h3>
+                        <p className='doYouHaveAnAccount'>
+                                    Don't have an account? <Link to='/signup' className='signUp'>Sign up
+                                </Link>
+                        </p>
+
+                        <h3 className='or'> 
+                            <span>
+                            OR
+                            </span>    
+                        </h3>
+
                     <div className='loginButtons'>
                         <button className='loginBrandedButtons' id='facebook'>
                             {/* <p id='paragraph'>Facebook 
