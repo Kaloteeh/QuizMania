@@ -1,83 +1,165 @@
+
 import React, { useState, useEffect } from 'react';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import { Link } from 'react-router-dom'
 import './login.css'
-import Button from '@mui/material/Button';
-import { Helmet } from 'react-helmet'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook,faGithub,faGoogle } from '@fortawesome/free-brands-svg-icons'
+import InputLabel from '@mui/material/InputLabel';  
+import FormControl from '@mui/material/FormControl';    
+import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+
+
+
 
 function Login() {
 
-   
+    const [showPassword, setShowPassword] = useState(false);
 
-
-    const [ user, setUser ] = useState([]);
-    const [ profile, setProfile ] = useState(null);
-
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
-    });
-
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setProfile(res.data);
-                    })
-                    .catch((err) => console.log(err));
-            }
-        },
-        [ user ]
-    );
-
-    // log out function to log the user out of google and set the profile array to null
-    const logOut = () => {
-        googleLogout();
-        setProfile(null);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+  
+    const handleMouseDownPassword = (event) => {
+      event.preventDefault();
     };
 
     return (
 
         <>
-                    <Helmet>
-                        <title>
-                            ShapeMe | Login
-                        </title>
-                    </Helmet>
-        
-        <div className='logincontainer'>
-            <h2>React Google Login</h2>
-           
-            {profile ? (
-                <div className='logincontents'>
-                    <img src={profile.picture} alt="user image" />
-                    <h3>User Logged in</h3>
-                    <p>Name: {profile.name}</p>
-                    <p>Email Address: {profile.email}</p>
-                    <br />
-                    <br />
-                    <Button variant='contained' onClick={logOut}>Log out</Button>
-                </div>
-            ) : (
-               <> 
-               <Button 
-              style={{ padding:' 0.5rem 1rem 0.5rem 1rem',margin:'1rem'}}
-                variant='contained'
-                 onClick={() => login()}>
-                    Sign in with Google 
-                    </Button>
-                    <Button variant='contained' style={{backgroundColor:'purple',padding:' 0.5rem 1rem 0.5rem 1rem',margin:'1rem'}}>Sign in</Button>
-                    </>
-            )}
-        </div>
+             <div className='loginContainer'>
+
+                <div className='loginBranded'>
+                    
+                <h2 className='heading'>Welcome</h2>
+            
+                    <form action="" className='loginForm'>
+                        <TextField
+                            sx={{ m: 1, width: '28ch' }}
+                            id="outlined-password-input"
+                            label="Email"
+                            type="text"
+                            autoComplete="current-password">
+
+                        </TextField>
+
+                        <FormControl sx={{ m: 1, width: '28ch' }} variant="outlined">
+                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                <OutlinedInput
+                                    id="outlined-adornment-password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                                }
+                                label="Password"
+                            />
+                        </FormControl>
+
+                        <button type='button' className='continueButton'>Continue</button>
+
+                    </form>
+                        <p className='doYouHaveAnAccount'>
+                                    Don't have an account? <Link to='/signup' className='signUp'>Sign up
+                                </Link>
+                        </p>
+
+                        <h3 className='or'> 
+                            <span>
+                            OR
+                            </span>    
+                        </h3>
+
+                    <div className='loginButtons'>
+                        <button className='loginBrandedButtons' id='facebook'>
+                            {/* <p id='paragraph'>Facebook 
+                            </p> */}
+                            <FontAwesomeIcon id='icon' className='facebook'
+                                icon={faFacebook}/>
+                        </button>
+
+                        <button className='loginBrandedButtons' id='google'>
+                            {/* <p id='paragraph'>Google 
+                            </p> */}
+                            <FontAwesomeIcon id='icon' className='google'
+                                icon={faGoogle} />
+                        </button>
+
+                        <button className='loginBrandedButtons' id='github'>
+                            {/* <p id='paragraph'>GitHub 
+                            </p> */}
+                            <FontAwesomeIcon id='icon' className='github'
+                                icon={faGithub} />
+                        </button>
+                        </div>
+                    </div>
+             </div>     
+       
         </>
     );
 }
 export default Login;
+
+
+//RETURN >>
+
+ {/* <div className='containerLogin'>
+   {profile ? (
+        <div className='loggedProfile'>
+            <div className='img'>
+            <img src={profile.picture} style={{borderRadius:20}}/>
+            </div>
+            <h3>User Logged in</h3>
+            <p>Name : {profile.name}</p>
+            <p>Email : {profile.email}</p>
+            <Button variant='contained' onClick={logOut}> Sign Out</Button>
+
+        </div>)
+        : (
+            <div className='login'>
+    <LoginSocialGoogle 
+    client_id='230827833124-tnimfcl2qs7q5ii8gn5gdh1kal1o1phq.apps.googleusercontent.com'
+    scope='openid profile email'
+    discoveryDocs='claims_supported'
+    access_type='offline'
+    onResolve={handleLoginSuccess}
+    onReject={(err)=>{
+        console.log(err);
+    }}
+    >
+    <Button variant='contained' > Sign</Button>
+    </LoginSocialGoogle>
+   </div>   
+
+        )
+        
+        }
+       </div> */}
+
+
+    //CONSTS >
+
+//     const [profile,setProfile] = useState(null)
+// const handleLoginSuccess = ({ provider,data})=>{
+//     console.log("Logged in with " , provider)
+//     console.log("User Data" , data )
+
+//     setProfile(data)
+
+
+// }
+
+// const logOut = () => {
+//     googleLogout();
+//    setProfile(null);
+// };

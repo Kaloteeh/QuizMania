@@ -1,15 +1,177 @@
-.logincontainer {
+
+button {
+    all: unset;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+    user-select: none;
+    /* border: 0.5px solid black; */
+  }
+  
+ button:active{
+    transform: scale(0.97);
+ }
+
+.loginContainer {
+    display: grid;
+    place-items: center;
+    grid-template-columns: 0.2fr 0.6fr 0.2fr;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.heading {
+    position: relative;
+    bottom: 2rem;
+    font-size: 2.2rem;
+    color: rgb(54, 53, 53);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.loginForm{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 2rem;
 }
 
-.logincontents{
-    display: grid;
-    place-content: center;
-    border: 1px solid black;
-    height: 90vh;
-    width: 90vw;
+.loginBranded{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column-start: 2;
+    grid-column-end: 3;
 }
+
+
+.loginBrandedButtons{
+    cursor: pointer;
+    display: flex;
+    border-radius: 10px;
+    padding: 0.2rem;
+    width: 50px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 3px 1px black;
+}
+
+.loginBrandedButtons:not(:last-child){
+    margin: 0 1rem 0 0;
+}
+
+.loginButtons{
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+p{
+    color: rgb(255, 255, 255);
+    font-size: 1.3rem;
+    padding: 1rem 0 1rem 0;
+}
+
+/* THE FACEBOOK ICON  */
+.facebook{
+    color: rgb(255, 255, 255);
+    font-size: 2rem;
+}
+
+/* THE FACEBOOK DIV */
+#facebook{
+    background-color: rgb(101, 101, 231);
+}
+
+#facebook:hover{
+    transition: 0.15s ease-in;
+    background-color: rgb(131, 131, 212);
+}
+
+/* THE GOOGLE ICON  */
+.google{
+    color: rgb(255, 255, 255);
+    font-size: 2rem;
+}
+
+/* THE GOOGLE DIV */
+#google{
+    background-color: rgb(241, 19, 19);
+}
+
+#google:hover{
+    transition: 0.15s ease-in;
+    background-color: rgb(219, 81, 63);
+}
+
+/* THE GITHUB ICON  */
+.github{
+    color: white;
+    font-size: 2rem;
+}
+
+/* THE GITHUB DIV */
+#github{
+    background-color: black;
+}
+
+#github:hover{
+    transition: 0.15s ease-in;
+    background-color: rgb(44, 44, 44);
+}
+
+.loginBrandedButtons #paragraph{
+    flex: 70%;
+    display: grid;
+    place-items: center;
+}
+
+.loginBrandedButtons #icon{
+    flex: 30%;
+}
+
+.continueButton{
+    background-color: rgb(73, 160, 109);
+    padding: 0.7rem;
+    display: grid;
+    place-items: center;
+    width: 27ch;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.2s ease-in;
+}
+.continueButton:active{
+    transform: scale(0.97);
+}
+
+.or {
+    padding-top: 1.5rem;
+    font-size: 0.8rem;
+    color: #636161;
+    width: 90%; 
+    text-align: center; 
+    border-bottom: 1px solid #636161; 
+    line-height: 0.1em;
+    margin: 0px 0 10px; 
+ } 
+ 
+.or span { 
+     background:#fff; 
+     padding:0 10px; 
+ }
+
+ .doYouHaveAnAccount {
+    padding-top: 1.5rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: black;
+    font-size: 0.9rem;
+ }
+ 
+ .signUp{
+    text-decoration: none;
+    color: rgb(73, 126, 86);
+ }
