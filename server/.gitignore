@@ -1,0 +1,6 @@
+# Ignore Node Modules
+node_modules
+
+# Ignore .env files (for storing sensitive environment variables)
+.env
+.env.local
