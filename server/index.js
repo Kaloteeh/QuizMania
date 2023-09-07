@@ -1,8 +1,10 @@
-const express = require('express');
+import express from "express"; 
+import {pool} from './db.js';
+import {routes} from './routes.js';
+
 const app = express();
 const port = process.env.PORT || 3001;
 
-const pool = require('./db');
 
 app.get('/test-db-connection', async (req, res) => {
     try {
@@ -14,6 +16,8 @@ app.get('/test-db-connection', async (req, res) => {
     }
 });
 
+app.use(express.json());
+app.use('/',routes())
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 }); 
