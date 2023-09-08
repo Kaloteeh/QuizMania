@@ -10,7 +10,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
+import InputAdornment from '@mui/material/InputAdornment';  
+import axios from 'axios'
 
 export default function Signup () {
 
@@ -27,6 +28,18 @@ export default function Signup () {
 
 
     return (
+
+
+
+        //how do I send the data to the backend?
+        //you can use axios to send the data to the backend
+        //you can use fetch to send the data to the backend
+        //more specifically ?
+        //you can use axios.post('url',data) to send the data to the backend
+        //do I have to create a user controller?
+        //yes you have to create a user controller
+        //how do I call the file as in how should I name it?
+            
 
         <>
                  <div className='signupContainer'>
