@@ -1,18 +1,29 @@
 import {pool} from '../db.js';
 import bcryptjs from 'bcryptjs';
+import { format } from 'date-fns';
+
+// Function to validate an email using a regular expression
+function isValidEmail(email) {
+        // Regular expression pattern for a basic email format validation
+        const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+        return emailRegex.test(email);
+      }
 
 export const Signup = async (req,res) => {
     
         const body = req.body;
-        let userGroup = "1";
+        let userGroup = "2";
+        
 
                  if(body.password !== body.confirm_password) {
                     return res.status(400).json({message: 'Passwords do not match'});
                 }
-                //how do I check if the email already exists in the database?
                 if(body.email === ""){
                         return res.status(400).json({message: 'Email cannot be empty'});
                 }
+                if (!isValidEmail(body.email)) {
+                        return res.status(400).json({ message: 'Invalid email format' });
+                      }
                 if(body.password === ""){
                         return res.status(400).json({message: 'Password cannot be empty'});
                 }
@@ -23,6 +34,12 @@ export const Signup = async (req,res) => {
         
    
                 try{
+
+                        
+                        const currentDate = new Date();
+                        const dateFormat = 'yyyy-MM-dd HH:mm:ss';
+                        const joined = format(currentDate, dateFormat);
+
                         const connection = await pool.connect();
 
 
@@ -46,7 +63,7 @@ export const Signup = async (req,res) => {
                                   body.fullname,
                                   body.email,
                                   passwordHash,
-                                  body.joined,
+                                  joined,
                                   userGroup
                                 ]
                                 );

@@ -47,13 +47,26 @@ export default function Signup () {
                     
                     <div className='signupForm'>
                     <h1 className='signupHeader'>Sign Up</h1>
+
+                    <TextField
+                            sx={{ m: 1, width: '28ch' }}
+                            id="outlined-password-input"
+                            label="Fullname"
+                            type="text"
+                            // autoComplete="current-password"
+                            //Idk why autocomplete was for current password on email
+                            >
+                        </TextField>
+
+
                         <TextField
                             sx={{ m: 1, width: '28ch' }}
                             id="outlined-password-input"
                             label="Email"
                             type="text"
-                            autoComplete="current-password">
-
+                            // autoComplete="current-password"
+                            //Idk why autocomplete was for current password on email
+                            >
                         </TextField>
 
                         <FormControl sx={{ m: 1, width: '28ch' }} variant="outlined">
