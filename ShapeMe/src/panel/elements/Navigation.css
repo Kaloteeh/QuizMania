@@ -2,21 +2,15 @@
     height: 100%;
     width: 250px;
     background-color: #2f4050;
-    border-radius: 10px 0 0 10px; 
 }
 
 .Navbarlist{
-    /* height: 100%;
-    width: 100%; */
     padding: 0;
 }
-.Navbarlist .row:first {
-    border-radius: 10px 0 0 0;
-  }
+
 .Navbarlist .row {
     width: 100%;
     height: 60px;
-    /* border: 1px solid black; */
     list-style-type: none;
     margin: 0;
     display: flex;

@@ -15,8 +15,8 @@ export const Signup = async (req,res) => {
         let userGroup = "2";
         
 
-                 if(body.password !== body.confirm_password) {
-                    return res.status(400).json({message: 'Passwords do not match'});
+                 if(body.password !== body.password_confirm) {
+                    return res.status(400).json({message: 'Passwords do not match . Please try again'});
                 }
                 if(body.email === ""){
                         return res.status(400).json({message: 'Email cannot be empty'});

@@ -1,15 +1,15 @@
-import { Helmet } from 'react-helmet';
+import {useTitle} from './Title';
+import React, { useEffect } from 'react';
+
 
 
 export default function Another () {
 
+       useTitle('Another | ShapeMe');
+
     return (
         <>
-        <Helmet>
-            <title>
-                ShapeMe | Another
-            </title>
-        </Helmet>
+       
         <h1>Another</h1>
         </>
         

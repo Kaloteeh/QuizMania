@@ -5,11 +5,13 @@ import Dashboard from './elements/Dashboard'
 import Navigation from './elements/Navigation'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {useTitle} from '../Pages/Title';
 import Button from '@mui/material/Button';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 export default function Panel ()  {
 
+    useTitle('Admin Panel | ShapeMe');
     const [selectedPage, setSelectedPage] = useState('');
 
     return(

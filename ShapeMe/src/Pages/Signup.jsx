@@ -12,8 +12,13 @@ import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';  
 import axios from 'axios'
+import {useTitle} from './Title';
+import { Navigate } from 'react-router-dom';
+
 
 export default function Signup () {
+
+        useTitle('Signup | ShapeMe');
 
         const [showPassword, setShowPassword] = useState(false);
         const [showConfirmPassword ,setShowConfirmPassword] = useState(false)
@@ -26,33 +31,51 @@ export default function Signup () {
         event.preventDefault();
         };
 
+        const [fullname, setFullname] = useState('')
+        const [email, setEmail] = useState('')
+        const [password, setPassword] = useState('')
+        const [password_confirm, setPasswordConfirm] = useState('')
+        const [redirect, setRedirect] = useState(false)
 
-    return (
+        const submitHandler = async (e) => {
+            e.preventDefault()
 
-
-
-        //how do I send the data to the backend?
-        //you can use axios to send the data to the backend
-        //you can use fetch to send the data to the backend
-        //more specifically ?
-        //you can use axios.post('url',data) to send the data to the backend
-        //do I have to create a user controller?
-        //yes you have to create a user controller
-        //how do I call the file as in how should I name it?
+            try{
+            await axios.post('http://localhost:3001/api/signup', { 
+            fullname,
+            email,
+            password,
+            password_confirm
+            })
+            setRedirect(true)
             
+        }
+        catch(err){
+            console.log(err)
+        }
 
-        <>
+            
+        }
+
+
+        if(redirect){
+            return <Navigate to='/'/>
+          }
+
+        return (
+            <>
                  <div className='signupContainer'>
 
                     
-                    <div className='signupForm'>
+                    <form onSubmit={submitHandler} className='signupForm'>
                     <h1 className='signupHeader'>Sign Up</h1>
-
+            
                     <TextField
                             sx={{ m: 1, width: '28ch' }}
                             id="outlined-password-input"
-                            label="Fullname"
+                            label="Full Name"
                             type="text"
+                            onChange={(e) => setFullname(e.target.value)}
                             // autoComplete="current-password"
                             //Idk why autocomplete was for current password on email
                             >
@@ -64,6 +87,7 @@ export default function Signup () {
                             id="outlined-password-input"
                             label="Email"
                             type="text"
+                            onChange={(e) => setEmail(e.target.value)}
                             // autoComplete="current-password"
                             //Idk why autocomplete was for current password on email
                             >
@@ -87,6 +111,7 @@ export default function Signup () {
                                 </InputAdornment>
                                 }
                                 label="Password"
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </FormControl>
 
@@ -108,10 +133,11 @@ export default function Signup () {
                                 </InputAdornment>
                                 }
                                 label="Confirm Password"
+                                onChange={(e) => setPasswordConfirm(e.target.value)}
                             />
                         </FormControl>
-                        <button type='button' className='signupButton'> Signup </button>
-
+                        <button type='submit' className='signupButton'> Signup </button>
+                       
                         <p className='loginLink'>
                                     Already have an account? <Link to='/login' className='login'>Login here</Link>
                         </p>
@@ -145,7 +171,7 @@ export default function Signup () {
                         </button>
                         </div>
 
-                </div>
+                </form>
              </div>
         </>
     )

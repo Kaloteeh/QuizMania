@@ -1,16 +1,14 @@
 import { Helmet } from 'react-helmet';
+import {useTitle} from './Title';
 
 export default function About () {
 
 
-
+  useTitle('About | ShapeMe');
 
     return (
         <>
-        <h1>About</h1>
-        <Helmet>
-        <title>ShapeMe | About </title>
-      </Helmet>
+        About
       </>
     )
 }

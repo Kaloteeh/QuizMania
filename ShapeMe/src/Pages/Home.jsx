@@ -1,18 +1,13 @@
-import { Helmet } from 'react-helmet';
 
+import {useTitle} from './Title';
 
 export default function Home () {
 
  
-       
+    useTitle('Home | ShapeMe'); 
 
     return (
-        <>
-       <Helmet>
-        <title>
-            ShapeMe | Home
-        </title>
-       </Helmet>
+        <>  
         <h1>Home</h1>
         </>
     )

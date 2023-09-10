@@ -1,4 +1,4 @@
-
+import {useTitle} from './Title';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import './login.css'
@@ -17,6 +17,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 
 function Login() {
+
+    useTitle('Login | ShapeMe');    
 
     const [showPassword, setShowPassword] = useState(false);
 
