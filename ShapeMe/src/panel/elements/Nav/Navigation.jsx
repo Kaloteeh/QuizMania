@@ -1,13 +1,18 @@
 import './Navigation.css'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { NavigationData } from './NavigationData';
 
 export default function Navigation ({ selectedPage, setSelectedPage }) {
 
 
-  
+
+const handlePageSelection = (pageName) => {
+  setSelectedPage(pageName);
+  localStorage.setItem('selectedPage', pageName); // Save the selected page in localStorage
+};
+
+
+
     return(
         <div className='Navbar'>
           <ul className='Navbarlist'>
@@ -18,7 +23,7 @@ export default function Navigation ({ selectedPage, setSelectedPage }) {
                     ><li 
                     className='row'
                     id={window.location.pathname === val.link ? 'active' : ''} 
-                    onClick={() => setSelectedPage(val.name)}
+                    onClick={() => handlePageSelection(val.name)}
                      > 
                     {" "}
                       <div id='icon'>{val.icon}</div>{" "}

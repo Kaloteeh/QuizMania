@@ -1,0 +1,61 @@
+ 
+ .tableHead{
+    background-color: #c6c7de;
+    font-size: 1.2rem;
+    
+  }
+
+  .th {
+    border: 1px solid black;
+    padding: 0.5rem;
+    text-align: center;
+  }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    
+  }
+  .tableIndex {
+    height: 3rem;
+  }
+  
+  .user-item {
+    font-size: larger;
+    border: 1px solid black;
+  }
+
+  .td{
+    border-right: 1px solid black;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+    padding:1rem;
+    margin-top: 3rem;
+  }
+
+  .page-link{
+    border: 1px solid rgb(88, 86, 86);
+    box-shadow: 1px 1px 2px 1px rgb(88, 86, 86);
+    text-decoration: none;
+    background-color: rgb(67, 158, 94);
+    padding: 0.6rem;
+    border-radius: 0.2rem;
+    color: white;
+    font-size: large;  
+    font-weight: 600;
+    transition: 0.3s ease-in-out;
+  }
+
+  .page-link:hover{
+    background-color: rgb(150, 179, 97);
+    color: white;
+  } 
+ 

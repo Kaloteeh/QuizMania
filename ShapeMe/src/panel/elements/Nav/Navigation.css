@@ -2,9 +2,11 @@
     height: 100%;
     width: 250px;
     background-color: #2f4050;
+    overflow: hidden;
 }
 
 .Navbarlist{
+    margin-top: 3rem;
     padding: 0;
 }
 

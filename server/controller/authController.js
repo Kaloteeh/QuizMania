@@ -1,6 +1,9 @@
 import {pool} from '../db.js';
 import bcryptjs from 'bcryptjs';
 import { format } from 'date-fns';
+import pkg from 'jsonwebtoken';
+
+const {sign} = pkg;
 
 // Function to validate an email using a regular expression
 function isValidEmail(email) {
@@ -83,3 +86,72 @@ export const Signup = async (req,res) => {
                         res.status(500).json({ message: 'An error occurred during user registration' });
                 }
 }
+
+export const Login = async (req,res) => {
+
+        try{
+        const user = await pool.query('SELECT * FROM users WHERE email = $1', [req.body.email]);
+        if (user.rowCount === 0) {
+                return res.status(400).json({ message: 'Invalid email or password' });
+              }
+        const validPassword = await bcryptjs.compare(req.body.password, user.rows[0].password);
+        if (!validPassword) {
+                return res.status(400).json({ message: 'Invalid email or password' });
+              }
+
+              const accessSecret = sign({ id: user.rows[0].id }, "access_secret", { expiresIn: '1m' });
+
+              const refreshToken = sign({ id: user.rows[0].id }, "refresh_token", { expiresIn: '1w' });
+        
+              
+              res.cookie('access_secret', accessSecret, { httpOnly: true,
+              maxAge: 1000 * 60 * 60 * 24  });//1 day
+
+              res.cookie('refresh_token', refreshToken, { httpOnly: true,
+                maxAge: 1000 * 60 * 60 * 24 * 7  });//7 day
+
+                //q : do the access secret and refresh token mean that when I refresh the page, I will still be logged in?
+                //ans : yes, the access token is valid for 1 day and the refresh token is valid for 7 days
+                //q : what is the purpose of the refresh token?
+                //ans : the refresh token is used to generate a new access token when the access token expires
+                //q : what is the purpose of the access token?
+                //ans : the access token is used to authenticate the user when they make a request to the server
+                //q : what is the purpose of the httpOnly?
+                //ans : the httpOnly is used to prevent the access token and refresh token from being accessed by javascript
+                //q : what is the purpose of the maxAge?
+                //ans : the maxAge is used to set the expiry time of the access token and refresh token
+                // q : so when I refresh the page I refresh the access token ?
+                //ans : yes, the access token is refreshed when the page is refreshed
+
+
+              res.send({message : "Login successful"});
+        }catch(e){
+           console.log(e);
+           res.status(500).json({ message: 'An error occurred during login' });
+        }
+
+}
+
+export const Users = async (req,res) => {
+
+        try{
+                const users = await pool.query('SELECT * FROM users');
+                res.json(users.rows);
+        }catch(e){
+                console.log(e);
+                res.status(500).json({ message: 'An error occurred while fetching users' });
+        }
+
+}
+
+export const deleteUser = async (req,res) => { 
+                try{
+                        const id = req.params.id;
+                        const user = await pool.query('DELETE FROM users WHERE id = $1', [id]);
+                        res.send({message : "User deleted successfully"});
+                }catch(e){
+                        console.log(e);
+                        res.status(500).json({ message: 'An error occurred while deleting user' });
+                }
+        
+        }

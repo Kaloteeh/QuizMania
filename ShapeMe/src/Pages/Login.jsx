@@ -12,13 +12,15 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-
+import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 
 
 function Login() {
 
-    useTitle('Login | ShapeMe');    
+    
+    
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -27,6 +29,33 @@ function Login() {
     const handleMouseDownPassword = (event) => {
       event.preventDefault();
     };
+
+
+        useTitle('Login | ShapeMe');    
+
+        const [email, setEmail] = useState('')
+        const [password, setPassword] = useState('')
+        const [redirect, setRedirect] = useState(false)
+
+        const submit = async (e) => {
+                e.preventDefault()
+            try{
+                await axios.post('http://localhost:3001/api/login', {
+                    email,
+                    password
+
+            }) 
+                setRedirect(true)
+            }catch(err){
+                console.log(err)
+            }
+        }
+
+    if(redirect){
+        return <Navigate to='/'/>
+    }
+
+    
 
     return (
 
@@ -37,14 +66,16 @@ function Login() {
                     
                 <h2 className='heading'>Welcome</h2>
             
-                    <form action="" className='loginForm'>
+                    <form onSubmit={submit} className='loginForm'>
                         <TextField
                             sx={{ m: 1, width: '28ch' }}
                             id="outlined-password-input"
                             label="Email"
                             type="text"
-                            autoComplete="current-password">
-
+                            autoComplete="current-password"
+                            onChange={e => setEmail(e.target.value)}
+                            >
+                            
                         </TextField>
 
                         <FormControl sx={{ m: 1, width: '28ch' }} variant="outlined">
@@ -65,10 +96,11 @@ function Login() {
                                 </InputAdornment>
                                 }
                                 label="Password"
+                                onChange={e => setPassword(e.target.value)}
                             />
                         </FormControl>
 
-                        <button type='button' className='continueButton'>Continue</button>
+                        <button type='submit' className='continueButton'>Continue</button>
 
                     </form>
                         <p className='doYouHaveAnAccount'>
