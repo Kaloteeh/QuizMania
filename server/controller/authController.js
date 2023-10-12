@@ -3,7 +3,9 @@ import bcryptjs from 'bcryptjs';
 import { format } from 'date-fns';
 import pkg from 'jsonwebtoken';
 
+
 const {sign} = pkg;
+const { verify } = pkg;
 
 // Function to validate an email using a regular expression
 function isValidEmail(email) {
@@ -15,7 +17,7 @@ function isValidEmail(email) {
 export const Signup = async (req,res) => {
     
         const body = req.body;
-        let userGroup = "2";
+        let userGroup = "1";
         
 
                  if(body.password !== body.password_confirm) {
@@ -99,32 +101,22 @@ export const Login = async (req,res) => {
                 return res.status(400).json({ message: 'Invalid email or password' });
               }
 
-              const accessSecret = sign({ id: user.rows[0].id }, "access_secret", { expiresIn: '1m' });
+              const accessToken = sign({ id: user.rows[0].id }, process.env.ACCESS_SECRET || '', { expiresIn: '1m' });
 
-              const refreshToken = sign({ id: user.rows[0].id }, "refresh_token", { expiresIn: '1w' });
-        
+              const refreshToken = sign({ id: user.rows[0].id }, process.env.REFRESH_SECRET || '', { expiresIn: '1w' });
               
-              res.cookie('access_secret', accessSecret, { httpOnly: true,
-              maxAge: 1000 * 60 * 60 * 24  });//1 day
+              const userid = user.rows[0].id;
+              
+              res.cookie('access_token', accessToken, { httpOnly: true,
+              maxAge: 1000 * 60 * 60 * 24 ,
+              sameSite: 'Strict' });//1 day
 
               res.cookie('refresh_token', refreshToken, { httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 24 * 7  });//7 day
-
-                //q : do the access secret and refresh token mean that when I refresh the page, I will still be logged in?
-                //ans : yes, the access token is valid for 1 day and the refresh token is valid for 7 days
-                //q : what is the purpose of the refresh token?
-                //ans : the refresh token is used to generate a new access token when the access token expires
-                //q : what is the purpose of the access token?
-                //ans : the access token is used to authenticate the user when they make a request to the server
-                //q : what is the purpose of the httpOnly?
-                //ans : the httpOnly is used to prevent the access token and refresh token from being accessed by javascript
-                //q : what is the purpose of the maxAge?
-                //ans : the maxAge is used to set the expiry time of the access token and refresh token
-                // q : so when I refresh the page I refresh the access token ?
-                //ans : yes, the access token is refreshed when the page is refreshed
+                maxAge: 1000 * 60 * 60 * 24 * 7  });//7 days
 
 
-              res.send({message : "Login successful"});
+
+              res.send({message : "Login successful",accessToken,refreshToken,userid});
         }catch(e){
            console.log(e);
            res.status(500).json({ message: 'An error occurred during login' });
@@ -132,26 +124,50 @@ export const Login = async (req,res) => {
 
 }
 
-export const Users = async (req,res) => {
+export const Logout = async (req,res) => {
 
         try{
-                const users = await pool.query('SELECT * FROM users');
-                res.json(users.rows);
+                res.clearCookie('access_token');
+                res.clearCookie('refresh_token');
+                res.send({message : "Logout successful"});
         }catch(e){
                 console.log(e);
-                res.status(500).json({ message: 'An error occurred while fetching users' });
+                res.status(500).json({ message: 'An error occurred during logout' });
         }
-
 }
 
-export const deleteUser = async (req,res) => { 
-                try{
-                        const id = req.params.id;
-                        const user = await pool.query('DELETE FROM users WHERE id = $1', [id]);
-                        res.send({message : "User deleted successfully"});
-                }catch(e){
-                        console.log(e);
-                        res.status(500).json({ message: 'An error occurred while deleting user' });
-                }
+export const AuthenticatedUser = async (req,res) => {
         
+        try{
+        const cookie = req.cookies["access_token"];
+        // const cookie = req.cookies("access_token");
+
+        console.log(cookie)
+        if (!cookie) {
+                return res.status(401).send({
+                    message : "Token must be provided"
+                });
+            }
+       try{
+    const payload = verify(cookie, process.env.ACCESS_SECRET || "");
+
+    if(!payload){
+        return res.status(401).send({
+                message : "Unauthenticated"
+            })
+       }        
+      
+                const user = await pool.query('SELECT * FROM users WHERE id = $1', [payload.id]);
+                if (!user) {
+                        return res.status(401).send({ message: "User not found" });
+                    }
+                res.send(user.rows[0].fullname);
+                }catch(verificationError){
+                        console.log("Token Verification Error :" , verificationError);
+                        res.status(401).send({ message: "Invalid token or unauthorized" });
+                }
+        }catch(e){
+                console.log(e);
+                res.status(500).json({ message: 'An error occurred during authentication' });
         }
+}

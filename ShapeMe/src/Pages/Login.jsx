@@ -18,10 +18,7 @@ import { Navigate } from 'react-router-dom';
 
 
 function Login() {
-
-    
-    
-
+   
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -40,11 +37,15 @@ function Login() {
         const submit = async (e) => {
                 e.preventDefault()
             try{
-                await axios.post('http://localhost:3001/api/login', {
+               const log = await axios.post('http://localhost:3001/api/login', {
                     email,
                     password
 
-            }) 
+            }
+            ) 
+            console.log(log)
+            const accessToken = log.data.accessToken;
+            sessionStorage.setItem('access_token', accessToken);
                 setRedirect(true)
             }catch(err){
                 console.log(err)
@@ -58,7 +59,7 @@ function Login() {
     
 
     return (
-
+        
         <>
              <div className='loginContainer'>
 

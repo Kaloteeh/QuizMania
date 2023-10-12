@@ -13,7 +13,6 @@
   .table {
     width: 100%;
     border-collapse: collapse;
-    
   }
   .tableIndex {
     height: 3rem;
@@ -59,3 +58,15 @@
     color: white;
   } 
  
+  #selected-row {
+    background-color: #e0e2c1; /* Change to your desired background color for selected rows */
+  }
+
+  .first-column {
+    width: 13rem;
+    text-align: start;
+  }
+ 
+  .gray {
+    background-color: #dededf;
+  }

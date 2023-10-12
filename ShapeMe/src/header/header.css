@@ -8,7 +8,7 @@ body{
 }
 
 .nav{
-    background-color: #333;
+    background-color: #344666;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -44,10 +44,10 @@ body{
     padding: 1.2rem 1rem;
 }
 .nav li.active {
-    background-color: #555;
+    background-color: #5b5f75;
 }
 
 .nav li:hover{
-    background-color: #777;
+    background-color: #404f70;
 }
 
