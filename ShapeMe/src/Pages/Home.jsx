@@ -9,8 +9,6 @@ export default function Home () {
     const [message, setMessage] = useState('You are not authenticated')
     const [error, setError] = useState(null);
 
-    const token = sessionStorage.getItem('access_token');
-    // console.log(token)
 
     useEffect(() => {
     (

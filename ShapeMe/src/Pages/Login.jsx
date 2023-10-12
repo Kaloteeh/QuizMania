@@ -43,9 +43,6 @@ function Login() {
 
             }
             ) 
-            console.log(log)
-            const accessToken = log.data.accessToken;
-            sessionStorage.setItem('access_token', accessToken);
                 setRedirect(true)
             }catch(err){
                 console.log(err)

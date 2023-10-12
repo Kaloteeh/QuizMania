@@ -101,22 +101,11 @@ export const Login = async (req,res) => {
                 return res.status(400).json({ message: 'Invalid email or password' });
               }
 
-              const accessToken = sign({ id: user.rows[0].id }, process.env.ACCESS_SECRET || '', { expiresIn: '1m' });
-
-              const refreshToken = sign({ id: user.rows[0].id }, process.env.REFRESH_SECRET || '', { expiresIn: '1w' });
               
               const userid = user.rows[0].id;
               
-              res.cookie('access_token', accessToken, { httpOnly: true,
-              maxAge: 1000 * 60 * 60 * 24 ,
-              sameSite: 'Strict' });//1 day
 
-              res.cookie('refresh_token', refreshToken, { httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 24 * 7  });//7 days
-
-
-
-              res.send({message : "Login successful",accessToken,refreshToken,userid});
+              res.send({message : "Login successful",userid});
         }catch(e){
            console.log(e);
            res.status(500).json({ message: 'An error occurred during login' });
@@ -127,8 +116,6 @@ export const Login = async (req,res) => {
 export const Logout = async (req,res) => {
 
         try{
-                res.clearCookie('access_token');
-                res.clearCookie('refresh_token');
                 res.send({message : "Logout successful"});
         }catch(e){
                 console.log(e);
@@ -138,36 +125,5 @@ export const Logout = async (req,res) => {
 
 export const AuthenticatedUser = async (req,res) => {
         
-        try{
-        const cookie = req.cookies["access_token"];
-        // const cookie = req.cookies("access_token");
-
-        console.log(cookie)
-        if (!cookie) {
-                return res.status(401).send({
-                    message : "Token must be provided"
-                });
-            }
-       try{
-    const payload = verify(cookie, process.env.ACCESS_SECRET || "");
-
-    if(!payload){
-        return res.status(401).send({
-                message : "Unauthenticated"
-            })
-       }        
-      
-                const user = await pool.query('SELECT * FROM users WHERE id = $1', [payload.id]);
-                if (!user) {
-                        return res.status(401).send({ message: "User not found" });
-                    }
-                res.send(user.rows[0].fullname);
-                }catch(verificationError){
-                        console.log("Token Verification Error :" , verificationError);
-                        res.status(401).send({ message: "Invalid token or unauthorized" });
-                }
-        }catch(e){
-                console.log(e);
-                res.status(500).json({ message: 'An error occurred during authentication' });
-        }
+     
 }
